@@ -8,7 +8,7 @@ class InputModel(BaseModel):
     """
 
     image_urls: List[str] = Field(
-        description="List of image URLs to pass to the next node",
+        description="List of image URLs to fetch and encode as base64 strings",
     )
 
 
@@ -17,6 +17,6 @@ class OutputModel(BaseModel):
     Image URLs Input Piece Output Model
     """
 
-    image_urls: List[str] = Field(
-        description="List of image URLs passed to the next node",
+    image_base64_strings: List[str] = Field(
+        description="List of base64 encoded strings of the fetched images",
     )
