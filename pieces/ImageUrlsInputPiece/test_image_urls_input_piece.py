@@ -4,14 +4,10 @@ from domino.testing import piece_dry_run
 def test_image_urls_input_piece():
     input_data = dict(
         image_urls=[
-            "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png",
+            "https://picsum.photos/seed/domino/200/200",
+            "https://picsum.photos/seed/test/200/200",
         ]
     )
-    output_data = piece_dry_run(
-        "ImageUrlsInputPiece",
-        input_data,
-    )
+    output_data = piece_dry_run("ImageUrlsInputPiece", input_data)
 
-    assert len(output_data["image_base64_strings"]) == 2
-    assert all(isinstance(s, str) and len(s) > 0 for s in output_data["image_base64_strings"])
+    assert output_data["image_urls"] == input_data["image_urls"]

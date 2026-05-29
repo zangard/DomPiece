@@ -3,6 +3,7 @@ from .models import InputModel, OutputModel
 from io import BytesIO
 from PIL import Image
 import numpy as np
+import requests
 import base64
 
 
@@ -40,21 +41,19 @@ def _to_base64_png(image: Image.Image) -> str:
 class MultiImageFilterPiece(BasePiece):
 
     def piece_function(self, input_data: InputModel):
-        active_filters = [
-            name for name in FILTER_MASKS
-            if getattr(input_data, name, False)
-        ]
+        active_filters = [name for name in FILTER_MASKS if getattr(input_data, name, False)]
         self.logger.info(
-            f"Applying filters {active_filters} to {len(input_data.image_base64_strings)} image(s)."
+            f"Applying filters {active_filters} to {len(input_data.image_urls)} image(s)."
         )
 
         filtered_b64_images = []
-        for i, b64_string in enumerate(input_data.image_base64_strings):
-            image_data = base64.b64decode(b64_string)
-            image = Image.open(BytesIO(image_data)).convert("RGB")
+        for i, url in enumerate(input_data.image_urls):
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
+            image = Image.open(BytesIO(response.content)).convert("RGB")
             filtered = _apply_filters(image, active_filters)
             filtered_b64_images.append(_to_base64_png(filtered))
-            self.logger.info(f"Processed image {i + 1}/{len(input_data.image_base64_strings)}")
+            self.logger.info(f"Processed image {i + 1}/{len(input_data.image_urls)}")
 
         img_tags = "\n".join(
             f'    <div class="image-card">'
@@ -96,4 +95,7 @@ class MultiImageFilterPiece(BasePiece):
             "file_path": html_file_path,
         }
 
-        return OutputModel(html_file_path=html_file_path)
+        return OutputModel(
+            filtered_image_count=len(filtered_b64_images),
+            html_file_path=html_file_path,
+        )

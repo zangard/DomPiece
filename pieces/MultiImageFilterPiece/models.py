@@ -3,8 +3,8 @@ from typing import List
 
 
 class InputModel(BaseModel):
-    image_base64_strings: List[str] = Field(
-        description="List of base64 encoded images to apply filters to.",
+    image_urls: List[str] = Field(
+        description="List of image URLs to fetch, filter, and render to HTML.",
         json_schema_extra={"from_upstream": "always"},
     )
     sepia: bool = Field(default=False, description="Apply sepia effect.")
@@ -20,6 +20,9 @@ class InputModel(BaseModel):
 
 
 class OutputModel(BaseModel):
+    filtered_image_count: int = Field(
+        description="Number of images successfully filtered.",
+    )
     html_file_path: str = Field(
         description="Path to the HTML file containing all filtered images.",
     )
