@@ -1,140 +1,4 @@
 {
-    "ExampleSleepPiece": {
-        "name": "ExampleSleepPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "Example"
-        ],
-        "style": {
-            "node_label": "Example Sleep Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fa-solid:database",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This is an example of a simple Domino Piece that sleep for N seconds",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Sleep Piece Input Model",
-            "type": "object",
-            "properties": {
-                "sleep_time": {
-                    "title": "Sleep Time",
-                    "description": "Number of seconds to sleep",
-                    "default": 1.0,
-                    "type": "number"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Sleep Piece Output Model",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Sleep piece executed",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "message"
-            ]
-        },
-        "secrets_schema": null
-    },
-    "ExampleSineWavePiece": {
-        "name": "ExampleSineWavePiece",
-        "dependency": {
-            "dockerfile": "Dockerfile_1",
-            "requirements_file": null
-        },
-        "tags": [
-            "Example"
-        ],
-        "style": {
-            "node_label": "Example Sine Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fa-solid:database",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This is an example of a piece that uses Dockerfile for dependencies.",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Sleep Piece Input Model",
-            "type": "object",
-            "properties": {
-                "frequency": {
-                    "title": "Frequency",
-                    "description": "Frequency of the sine wave in Hz",
-                    "default": 5,
-                    "type": "integer"
-                },
-                "duration": {
-                    "title": "Duration",
-                    "description": "Duration of the sine wave signal in seconds",
-                    "default": 1,
-                    "type": "integer"
-                },
-                "sample_rate": {
-                    "title": "Sample Rate",
-                    "description": "Sample rate of the sine wave signal.",
-                    "default": 1000,
-                    "type": "integer"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Sleep Piece Output Model",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Sleep piece executed",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "message"
-            ]
-        },
-        "secrets_schema": null
-    },
     "ImageUrlsInputPiece": {
         "name": "ImageUrlsInputPiece",
         "dependency": {
@@ -169,41 +33,180 @@
             }
         },
         "input_schema": {
-            "title": "InputModel",
             "description": "Image URLs Input Piece Input Model",
-            "type": "object",
             "properties": {
                 "image_urls": {
-                    "title": "Image Urls",
                     "description": "List of image URLs to pass to the next node",
-                    "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "title": "Image Urls",
+                    "type": "array"
                 }
             },
             "required": [
                 "image_urls"
-            ]
+            ],
+            "title": "InputModel",
+            "type": "object"
         },
         "output_schema": {
-            "title": "OutputModel",
             "description": "Image URLs Input Piece Output Model",
-            "type": "object",
             "properties": {
                 "image_urls": {
-                    "title": "Image Urls",
                     "description": "List of image URLs passed to the next node",
-                    "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "title": "Image Urls",
+                    "type": "array"
                 }
             },
             "required": [
                 "image_urls"
-            ]
+            ],
+            "title": "OutputModel",
+            "type": "object"
         },
-        "secrets_schema": null
+        "secrets_schema": null,
+        "source_url": "https://github.com/zangard/DomPiece/tree/main/pieces/ImageUrlsInputPiece"
+    },
+    "ExampleSleepPiece": {
+        "name": "ExampleSleepPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "Example"
+        ],
+        "style": {
+            "node_label": "Example Sleep Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:database",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This is an example of a simple Domino Piece that sleep for N seconds",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "description": "Sleep Piece Input Model",
+            "properties": {
+                "sleep_time": {
+                    "default": 1,
+                    "description": "Number of seconds to sleep",
+                    "title": "Sleep Time",
+                    "type": "number"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "description": "Sleep Piece Output Model",
+            "properties": {
+                "message": {
+                    "description": "Sleep piece executed",
+                    "title": "Message",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/zangard/DomPiece/tree/main/pieces/ExampleSleepPiece"
+    },
+    "ExampleSineWavePiece": {
+        "name": "ExampleSineWavePiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_1",
+            "requirements_file": null
+        },
+        "tags": [
+            "Example"
+        ],
+        "style": {
+            "node_label": "Example Sine Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:database",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This is an example of a piece that uses Dockerfile for dependencies.",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "description": "Sleep Piece Input Model",
+            "properties": {
+                "frequency": {
+                    "default": 5,
+                    "description": "Frequency of the sine wave in Hz",
+                    "title": "Frequency",
+                    "type": "integer"
+                },
+                "duration": {
+                    "default": 1,
+                    "description": "Duration of the sine wave signal in seconds",
+                    "title": "Duration",
+                    "type": "integer"
+                },
+                "sample_rate": {
+                    "default": 1000,
+                    "description": "Sample rate of the sine wave signal.",
+                    "title": "Sample Rate",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "description": "Sleep Piece Output Model",
+            "properties": {
+                "message": {
+                    "description": "Sleep piece executed",
+                    "title": "Message",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/zangard/DomPiece/tree/main/pieces/ExampleSineWavePiece"
     }
 }
