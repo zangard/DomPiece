@@ -1,6 +1,6 @@
 {
-    "ExampleSimplePiece": {
-        "name": "ExampleSimplePiece",
+    "ExampleSleepPiece": {
+        "name": "ExampleSleepPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements_0.txt"
@@ -9,18 +9,18 @@
             "Example"
         ],
         "style": {
-            "node_label": "Simple Piece",
+            "node_label": "Example Sleep Piece",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-database",
+            "icon_class_name": "fa-solid:database",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This is an example of a simple Domino Piece",
+        "description": "This is an example of a simple Domino Piece that sleep for N seconds",
         "container_resources": {
             "requests": {
                 "cpu": "100m",
@@ -33,78 +33,177 @@
         },
         "input_schema": {
             "title": "InputModel",
+            "description": "Sleep Piece Input Model",
             "type": "object",
             "properties": {
-                "distribution_name": {
-                    "description": "Name of the distribution to sample from",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DistributionType"
-                        }
-                    ]
-                },
-                "distribution_mean": {
-                    "title": "Distribution Mean",
-                    "description": "Distribution mean",
-                    "type": "number"
-                },
-                "distribution_sd": {
-                    "title": "Distribution Sd",
-                    "description": "Distribution standard deviation",
+                "sleep_time": {
+                    "title": "Sleep Time",
+                    "description": "Number of seconds to sleep",
                     "default": 1.0,
-                    "exclusiveMinimum": 0.0,
                     "type": "number"
-                }
-            },
-            "required": [
-                "distribution_name",
-                "distribution_mean"
-            ],
-            "definitions": {
-                "DistributionType": {
-                    "title": "DistributionType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "gaussian",
-                        "poisson"
-                    ],
-                    "type": "string"
                 }
             }
         },
         "output_schema": {
             "title": "OutputModel",
+            "description": "Sleep Piece Output Model",
             "type": "object",
             "properties": {
                 "message": {
                     "title": "Message",
-                    "description": "Output message to log",
-                    "type": "string"
-                },
-                "sample_result": {
-                    "title": "Sample Result",
-                    "description": "The result of this Piece's processing",
+                    "description": "Sleep piece executed",
                     "type": "string"
                 }
             },
             "required": [
-                "message",
-                "sample_result"
+                "message"
             ]
         },
-        "secrets_schema": {
-            "title": "SecretsModel",
+        "secrets_schema": null
+    },
+    "ExampleSineWavePiece": {
+        "name": "ExampleSineWavePiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_1",
+            "requirements_file": null
+        },
+        "tags": [
+            "Example"
+        ],
+        "style": {
+            "node_label": "Example Sine Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:database",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This is an example of a piece that uses Dockerfile for dependencies.",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Sleep Piece Input Model",
             "type": "object",
             "properties": {
-                "EXAMPLE_OPERATOR_SECRET_1": {
-                    "title": "Example Operator Secret 1",
-                    "description": "A secret necessary to run this Piece",
+                "frequency": {
+                    "title": "Frequency",
+                    "description": "Frequency of the sine wave in Hz",
+                    "default": 5,
+                    "type": "integer"
+                },
+                "duration": {
+                    "title": "Duration",
+                    "description": "Duration of the sine wave signal in seconds",
+                    "default": 1,
+                    "type": "integer"
+                },
+                "sample_rate": {
+                    "title": "Sample Rate",
+                    "description": "Sample rate of the sine wave signal.",
+                    "default": 1000,
+                    "type": "integer"
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Sleep Piece Output Model",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Sleep piece executed",
                     "type": "string"
                 }
             },
             "required": [
-                "EXAMPLE_OPERATOR_SECRET_1"
+                "message"
             ]
-        }
+        },
+        "secrets_schema": null
+    },
+    "ImageUrlsInputPiece": {
+        "name": "ImageUrlsInputPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "Image",
+            "Input"
+        ],
+        "style": {
+            "node_label": "Image URLs Input",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:images",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A piece that accepts a list of image URLs and passes them to the next node in the workflow",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Image URLs Input Piece Input Model",
+            "type": "object",
+            "properties": {
+                "image_urls": {
+                    "title": "Image Urls",
+                    "description": "List of image URLs to pass to the next node",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "image_urls"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Image URLs Input Piece Output Model",
+            "type": "object",
+            "properties": {
+                "image_urls": {
+                    "title": "Image Urls",
+                    "description": "List of image URLs passed to the next node",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "image_urls"
+            ]
+        },
+        "secrets_schema": null
     }
 }

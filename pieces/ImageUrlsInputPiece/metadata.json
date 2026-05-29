@@ -1,0 +1,25 @@
+{
+    "name": "ImageUrlsInputPiece",
+    "description": "A piece that accepts a list of image URLs and passes them to the next node in the workflow",
+    "dependency": {
+        "requirements_file": "requirements_0.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": 100,
+            "memory": 128
+        },
+        "limits": {
+            "cpu": 500,
+            "memory": 512
+        }
+    },
+    "tags": [
+        "Image",
+        "Input"
+    ],
+    "style": {
+        "node_label": "Image URLs Input",
+        "icon_class_name": "fa-solid:images"
+    }
+}
